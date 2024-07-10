@@ -60,6 +60,8 @@
   </template>
   
 <script>
+import { watch } from 'vue';
+
   export default {
     props : ["pageCreated"],
     computed : {
@@ -92,6 +94,18 @@
           published : this.published  
         });
       }
+  },
+  watch : {
+    pageTitle(newTitle, oldTitle){
+      if (this.linkText === oldTitle) {
+        this.linkText = newTitle;
+      }
+    },
+    linkText(newText, oldText){
+      if (this.linkUrl !== newText) {
+        this.linkUrl = newText.toLowerCase().replace(" ", "") + ".html";
+      }
+    }
   }
 };
 </script>
